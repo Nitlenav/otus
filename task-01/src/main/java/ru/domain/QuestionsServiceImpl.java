@@ -17,17 +17,19 @@ public class QuestionsServiceImpl implements Questions {
     public QuestionsServiceImpl() {
     }
 
-    public QuestionsServiceImpl(String path) throws IOException {
+    public QuestionsServiceImpl(String path) {
         if (isNotBlank(path)) {
             ClassPathResource resource = new ClassPathResource(path);
             List<String> questions = getQuestions();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
                 reader.lines().forEach(questions::add);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
-   @Override
+    @Override
     public List<String> getQuestions() {
         if (questions == null) {
             this.questions = new ArrayList<>();
