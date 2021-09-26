@@ -5,4 +5,5 @@ import java.util.Map;
 
 public interface AskQuestion {
     Map<String, Boolean> getResult();
+    void answerQuestions();
 }
