@@ -18,10 +18,13 @@ public class DisplayResultImpl implements DisplayResult {
                              @Value("${correct.answer}") int correctAnswer) {
         this.askQuestion = askQuestion;
         this.correctAnswer = correctAnswer;
+        showResult();
     }
 
     @Override
     public void showResult() {
+        askQuestion.answerQuestions();
+
         Map<String, Boolean> answerMap = askQuestion.getResult();
 
         for (Map.Entry<String, Boolean> entry : answerMap.entrySet()) {
