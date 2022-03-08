@@ -32,8 +32,6 @@ public class AskQuestionImpl implements AskQuestion {
     @Override
     public void answerQuestions() {
         Random random = new Random();
-
-        questionsService.loadQuestions();
         List<String> questionsList = questionsService.getQuestions();
         Map<String, String> answerMap = questionsService.getQuestionAnswerMap();
         try (Scanner scanner = new Scanner(System.in)) {
