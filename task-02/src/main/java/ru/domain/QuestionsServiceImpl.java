@@ -15,22 +15,13 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Configuration
 @PropertySource("classpath:questions.properties")
-public class QuestionsServiceImpl implements QuestionsService {
+public class QuestionsServiceImpl implements Questions {
 
-    private final String path;
-    private final Map<String, String> answerMap;
+    private List<String> questions;
     private final Map<String, String> questionAnswerMap = new HashMap<>();
-    private final List<String> questions = new ArrayList<>();;
-
 
     public QuestionsServiceImpl(@Value("${path.questions.csv}") String path,
                                 @Value("#{${valuesMap}}") Map<String, String> answerMap) {
-        this.path = path;
-        this.answerMap = answerMap;
-    }
-
-    @Override
-    public void loadQuestions() {
         String regex = "[() -?',]";
 
         if (isNotBlank(path)) {
@@ -54,11 +45,14 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Override
     public List<String> getQuestions() {
+        if (questions == null) {
+            this.questions = new ArrayList<>();
+        }
         return this.questions;
     }
 
     @Override
     public Map<String, String> getQuestionAnswerMap() {
-        return this.questionAnswerMap;
+        return questionAnswerMap;
     }
 }
